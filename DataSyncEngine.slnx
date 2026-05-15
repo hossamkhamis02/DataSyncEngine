@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DataSyncEngine.Contracts/DataSyncEngine.Contracts.csproj" />
+    <Project Path="src/DataSyncEngine.Core/DataSyncEngine.Core.csproj" />
+    <Project Path="src/DataSyncEngine.Infrastructure/DataSyncEngine.Infrastructure.csproj" />
+    <Project Path="src/DataSyncEngine.Worker/DataSyncEngine.Worker.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DataSyncEngine.Core.Tests/DataSyncEngine.Core.Tests.csproj" />
+    <Project Path="tests/DataSyncEngine.Infrastructure.Tests/DataSyncEngine.Infrastructure.Tests.csproj" />
+  </Folder>
+</Solution>

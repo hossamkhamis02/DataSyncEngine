@@ -1,0 +1,38 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: data-sync-engine-db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${SA_PASSWORD:-YourStrong!Passw0rd}
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$${SA_PASSWORD}" -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  worker:
+    build:
+      context: .
+      dockerfile: src/DataSyncEngine.Worker/Dockerfile
+    container_name: data-sync-engine-worker
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    environment:
+      - SyncConfiguration__ConnectionString=Server=sqlserver,1433;Database=DataSyncEngine;User Id=sa;Password=${SA_PASSWORD:-YourStrong!Passw0rd};TrustServerCertificate=true;
+      - SyncConfiguration__UseMockApi=true
+      - SyncConfiguration__SyncCronExpression=${SYNC_CRON:-0 * * * *}
+    ports:
+      - "8080:8080"
+    volumes:
+      - worker-logs:/app/logs
+
+volumes:
+  sqlserver-data:
+  worker-logs:

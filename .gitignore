@@ -1,0 +1,36 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.vs/
+*.DotSettings.user
+*.csproj.user
+
+## VS Code
+.vscode/
+
+## Rider
+.idea/
+
+## Build
+*.nupkg
+TestResults/
+*.trx
+*.coverage
+
+## Logs
+logs/
+*.log
+
+## Environment
+.env
+appsettings.*.local.json
+
+## Docker
+*.sql
+
+## OS
+.DS_Store
+Thumbs.db
